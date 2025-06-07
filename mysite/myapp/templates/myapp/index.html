@@ -1,0 +1,33 @@
+{% extends 'myapp/base.html' %}
+{% block body %}
+
+<div class="product-container flex flex-wrap px-20 gap-20">
+    {% for product in products %}
+        <div class="product shadow-lg w-1/5 rounded-lg px-2 mb-6 mt-10 overflow-hidden flex flex-col">
+            <div class="product-image h-98 w-full">
+                <img class="w-full h-full object-cover rounded-t-lg" src="{{ product.file }}">
+            </div>
+            <div class="p-5 flex-1 flex flex-col">
+                <div class="font-bold">
+                    {{ product.name }}
+                </div>
+                <div>
+                    {{ product.description }}
+                </div>
+                
+                <div class="text-green-700 font-bold">
+                    {{ product.price }}€
+                </div>
+                <div class="mt-5">
+                    <a class="bg-green-500 text-white px-4 py-2 rounded" href="{% url 'detail' product.id %}">View Details</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+
+    
+    

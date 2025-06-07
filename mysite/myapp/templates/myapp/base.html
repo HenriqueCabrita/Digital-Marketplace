@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <nav class="shadow-lg">
+        <div class="flex flex-wrap  justify-between ml-5 items-center mx-auto px-4 py-2.5">
+            <a href="{% url 'index' %}" class="flex itens-center">
+                <img class="h-9 mr-3" src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/128/Cart.png" alt="">
+                <span class="self-center text-xl font-semibold">Digital Marketplace</span>
+            </a>
+            <div class="flex items-center">
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="mr-6 text-sm font-medium text-grey-500">Dashboard</a>
+                <a href="{% url 'sales' %}" class="mr-6 text-sm font-medium text-grey-500">Sales</a>
+                <a href="{% url 'orders' %}" class="mr-6 text-sm font-medium text-grey-500">Orders</a>
+                <a href="{% url 'createproduct' %}" class="mr-6 text-sm font-medium text-grey-500">Create Products</a>
+                <a href="{% url 'purchases' %}" class="mr-6 text-sm font-medium text-grey-500">My Purchases</a>
+                <a class="mr-6 text-sm font-medium text-grey-500" href="{% url 'logout' %}">Logout</a>
+                {% elif not request.user.is_authenticated and request.path != '/login/' %}
+                    <a class="mr-6 text-sm font-medium text-grey-500" href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    {% if request.user.is_authenticated %}
+    {% block body %}
+
+    {% endblock %}
+    {% endif %}
+</body>
+</html>
