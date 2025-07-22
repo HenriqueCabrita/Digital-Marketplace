@@ -32,7 +32,7 @@ SECRET_KEY = get_env_var("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', 'digital-market.henrique-cabrita.com']
+ALLOWED_HOSTS = ['localhost', 'digital-market.henrique-cabrita.com', 'www.digital-market.henrique-cabrita.com']
 
 
 # Application definition
