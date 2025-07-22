@@ -21,13 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-def get_env_var(name):
-    val = os.environ.get(name)
-    if not val:
-        raise ImproperlyConfigured(f"{name} environment variable not set")
-    return val
-
-SECRET_KEY = get_env_var("DJANGO_SECRET_KEY")
+SECRET_KEY = 'x+%8j)*6s_5774$*ct7dl2uki1x^85qd*nuj9i5a*4hrlefb@i' 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
