@@ -33,9 +33,13 @@
                 return
             }
             fetch("{% url 'api_checkout_session' id=product.id %}", {
-                method:'POST',
-                body:JSON.stringify({'email':email})
-            }).then(function(response){
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+              },
+              body: JSON.stringify({'email': email})
+        }).then(function(response){
             return response.json()
         }).then(function(session){
             return stripe.redirectToCheckout({sessionId:session.sessionId})
