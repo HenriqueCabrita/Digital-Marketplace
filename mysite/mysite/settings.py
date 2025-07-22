@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'x+%8j)*6s_5774$*ct7dl2uki1x^85qd*nuj9i5a*4hrlefb@i' 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'digital-market.henrique-cabrita.com', 'www.digital-market.henrique-cabrita.com']
 
