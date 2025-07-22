@@ -15,7 +15,9 @@ def index(request):
 def detail(request, id):
     product = Product.objects.get(id=id)
     stripe_publishable_key = settings.STRIPE_PUBLISHABLE_KEY
+    print("🔥 Stripe PUBLISHABLE KEY:", settings.STRIPE_PUBLISHABLE_KEY)
     return render(request, 'myapp/detail.html', {'product':product, 'stripe_publishable_key':stripe_publishable_key})
+    
 
 @csrf_exempt
 def create_checkout_session(request, id):
