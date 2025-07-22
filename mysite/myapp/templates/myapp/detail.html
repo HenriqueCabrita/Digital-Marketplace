@@ -21,38 +21,46 @@
             </div>
         </div>
     </div>
-    <script src="https://js.stripe.com/basil/stripe.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript">
-        var stripe = Stripe('{{ stripe_publishable_key }}')
-        var checkoutButton = document.getElementById('checkout-button')
-        checkoutButton.addEventListener('click', function(){
-            console.log('Button clicked')
-            var email = document.getElementById('myemail').innerText
-            if(email.length==0){
-                alert('Please enter your email adress.')
-                return
-            }
-            fetch("{% url 'api_checkout_session' id=product.id %}", {
-              method: 'POST',
-              headers: {
+    const stripe = Stripe('{{ stripe_publishable_key }}');
+    
+    const checkoutButton = document.getElementById('checkout-button');
+
+    checkoutButton.addEventListener('click', async () => {
+        const email = document.getElementById('myemail')?.innerText?.trim();
+
+        if (!email) {
+            alert("Please log in to continue or provide an email.");
+            return;
+        }
+
+        const response = await fetch("{% url 'api_checkout_session' id=product.id %}", {
+            method: 'POST',
+            headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'
-              },
-              body: JSON.stringify({'email': email})
-        }).then(function(response){
-            return response.json()
-        }).then(function(session){
-            return stripe.redirectToCheckout({sessionId:session.sessionId})
-        }).then(function(result){
-            if(result.error){
-                alert(result.error.message)
-            }
-        }).catch(function(error){
-            console.error('Error:',error)
-        })
-    })
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({
+                email: email
+            })
+        });
 
+        const result = await response.json();
 
-    </script>
+        if (result.error) {
+            alert("Checkout failed: " + result.error);
+        } else {
+            stripe.redirectToCheckout({
+                sessionId: result.sessionId
+            }).then(function (res) {
+                if (res.error) {
+                    alert(res.error.message);
+                }
+            });
+        }
+    });
+</script>
+
 {% endblock %}
 
